@@ -41,7 +41,26 @@ class JComponentRouterViewTest extends TestCaseDatabase
 		parent::setUp();
 
 		$app = $this->getMockCmsApp();
+
+		JFactory::$application = $app;
+		JFactory::$session = $this->getMockSession();
+
 		$this->object = new JComponentRouterViewInspector($app, $app->getMenu());
+	}
+
+	/**
+	 * Overrides the parent tearDown method.
+	 *
+	 * @return  void
+	 *
+	 * @see     PHPUnit_Framework_TestCase::tearDown()
+	 * @since   3.6
+	 */
+	protected function tearDown()
+	{
+		unset($this->object);
+		unset($app);
+		parent::tearDown();
 	}
 
 	/**

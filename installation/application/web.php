@@ -50,6 +50,23 @@ final class InstallationApplicationWeb extends JApplicationCms
 	}
 
 	/**
+	 * Event listener for the `onAfterSessionStart` event.
+	 *
+	 * @param   JSession  $session  Session object
+	 *
+	 * @return  void
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public function afterSessionStart(JSession $session)
+	{
+		if ($session->isNew())
+		{
+			$session->set('registry', new Registry('session'));
+		}
+	}
+
+	/**
 	 * Method to display errors in language parsing.
 	 *
 	 * @return  string  Language debug output.
@@ -274,9 +291,9 @@ final class InstallationApplicationWeb extends JApplicationCms
 
 		$ret = array();
 
-		$ret['language'] = (string) $xml->forceLang;
-		$ret['helpurl'] = (string) $xml->helpurl;
-		$ret['debug'] = (string) $xml->debug;
+		$ret['language']   = (string) $xml->forceLang;
+		$ret['helpurl']    = (string) $xml->helpurl;
+		$ret['debug']      = (string) $xml->debug;
 		$ret['sampledata'] = (string) $xml->sampledata;
 
 		return $ret;
@@ -284,7 +301,7 @@ final class InstallationApplicationWeb extends JApplicationCms
 
 	/**
 	 * Returns the installed language files in the administrative and
-	 * front-end area.
+	 * frontend area.
 	 *
 	 * @param   mixed  $db  JDatabaseDriver instance.
 	 *
@@ -295,19 +312,20 @@ final class InstallationApplicationWeb extends JApplicationCms
 	public function getLocaliseAdmin($db = false)
 	{
 		// Read the files in the admin area.
-		$path = JLanguage::getLanguagePath(JPATH_ADMINISTRATOR);
+		$path               = JLanguage::getLanguagePath(JPATH_ADMINISTRATOR);
 		$langfiles['admin'] = JFolder::folders($path);
 
 		// Read the files in the site area.
-		$path = JLanguage::getLanguagePath(JPATH_SITE);
+		$path              = JLanguage::getLanguagePath(JPATH_SITE);
 		$langfiles['site'] = JFolder::folders($path);
 
 		if ($db)
 		{
-			$langfiles_disk = $langfiles;
-			$langfiles = array();
+			$langfiles_disk     = $langfiles;
+			$langfiles          = array();
 			$langfiles['admin'] = array();
-			$langfiles['site'] = array();
+			$langfiles['site']  = array();
+
 			$query = $db->getQuery(true)
 				->select($db->quoteName(array('element','client_id')))
 				->from($db->quoteName('#__extensions'))
@@ -429,7 +447,7 @@ final class InstallationApplicationWeb extends JApplicationCms
 		// Check for custom helpurl.
 		if (empty($forced['helpurl']))
 		{
-			$options['helpurl'] = 'https://help.joomla.org/proxy/index.php?option=com_help&amp;keyref=Help{major}{minor}:{keyref}';
+			$options['helpurl'] = 'https://help.joomla.org/proxy/index.php?keyref=Help{major}{minor}:{keyref}';
 		}
 		else
 		{
@@ -472,7 +490,7 @@ final class InstallationApplicationWeb extends JApplicationCms
 				'lineend' => 'unix',
 				'tab' => '  ',
 				'language' => $lang->getTag(),
-				'direction' => $lang->isRtl() ? 'rtl' : 'ltr'
+				'direction' => $lang->isRtl() ? 'rtl' : 'ltr',
 			);
 
 			$document = JDocument::getInstance($type, $attributes);
@@ -514,27 +532,14 @@ final class InstallationApplicationWeb extends JApplicationCms
 		$options = array(
 			'name' => $name,
 			'expire' => $lifetime,
-			'force_ssl' => $this->get('force_ssl')
+			'force_ssl' => $this->get('force_ssl'),
 		);
+
+		$this->registerEvent('onAfterSessionStart', array($this, 'afterSessionStart'));
 
 		// Instantiate the session object.
 		$session = JSession::getInstance($handler, $options);
 		$session->initialise($this->input, $this->dispatcher);
-
-		if ($session->getState() == 'expired')
-		{
-			$session->restart();
-		}
-		else
-		{
-			$session->start();
-		}
-
-		if (!$session->get('registry') instanceof Registry)
-		{
-			// Registry has been corrupted somehow.
-			$session->set('registry', new Registry('session'));
-		}
 
 		// Set the session object.
 		$this->session = $session;
@@ -562,7 +567,7 @@ final class InstallationApplicationWeb extends JApplicationCms
 			'template' => 'template',
 			'file' => $file . '.php',
 			'directory' => JPATH_THEMES,
-			'params' => '{}'
+			'params' => '{}',
 		);
 
 		// Parse the document.
