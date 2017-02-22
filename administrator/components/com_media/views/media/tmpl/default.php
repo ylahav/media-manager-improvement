@@ -9,3 +9,4 @@
 defined('_JEXEC') or die;
 ?>
 <div id="com-media"></div>
+<?php echo $this->loadTemplate('media-app'); ?>
