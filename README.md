@@ -7,7 +7,7 @@ Travis-CI: [![Build Status](https://travis-ci.org/joomla-projects/media-manager-
 
 What is this?
 ---------------------
-This is the official New Media Manager repository. Please have a look on the [wiki](https://github.com/joomla-projects/media-manager-improvement/wiki) for the roadmap of the project.
+This is the last stage where the new media manager was developed on Joomla 3. Please use the [milestone1-j4] (https://github.com/joomla-projects/media-manager-improvement) branch.
 
 Copyright
 ---------------------
