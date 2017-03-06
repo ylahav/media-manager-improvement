@@ -9,7 +9,7 @@
 defined('_JEXEC') or die;
 
 $doc    = JFactory::getDocument();
-$params = JComponentHelper::getParams('com_media');
+$params = $this->params;
 
 // Make sure core.js is loaded before media scripts
 JHtml::_('behavior.core');
@@ -21,6 +21,7 @@ $config = array(
 	'csrfToken'               => JSession::getFormToken(),
 	'filePath'                => $params->get('file_path', 'images'),
 	'fileBaseUrl'             => JUri::root() . $params->get('file_path', 'images'),
+	'editViewUrl'             => JUri::root() . 'administrator/index.php?option=com_media&view=file',
 	'allowedUploadExtensions' => $params->get('upload_extensions', ''),
 	'maxUploadSizeMb'         => $params->get('upload_maxsize', 10),
 );

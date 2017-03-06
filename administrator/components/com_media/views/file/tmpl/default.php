@@ -93,7 +93,7 @@ JHtml::_('stylesheet', 'media/media-file.css', array('version' => 'auto', 'relat
 						</div>
 						<div class="span8">
 							<?php // @todo fileextension ?>
-							<img src="<?php echo JUri::root() . $this->file ?>" id="file"/>
+							<img src="<?php echo $this->fullFilePath ?>" id="file"/>
 						</div>
 					</div>
 				</div>

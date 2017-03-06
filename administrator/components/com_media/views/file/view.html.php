@@ -50,9 +50,13 @@ class MediaViewFile extends JViewLegacy
 	{
 		$input = JFactory::getApplication()->input;
 
-		$this->file = $input->getString('file', null);
+		// The component params
+		$this->params = JComponentHelper::getParams('com_media');
 
-		if (!$this->file && JFile::exists(JPATH_ROOT . '/' . $this->file))
+		$this->file         = $input->getString('path', null);
+		$this->fullFilePath = JUri::root() . $this->params->get('file_path', 'images') . '/' . $input->getString('path', null);
+
+		if (!$this->file && JFile::exists($this->fullFilePath))
 		{
 			// @todo error handling controller redirect files
 			throw new Exception('Image file does not exist');
