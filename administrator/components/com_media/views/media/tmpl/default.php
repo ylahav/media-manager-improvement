@@ -9,7 +9,7 @@
 defined('_JEXEC') or die;
 
 $doc    = JFactory::getDocument();
-$params = $this->params;
+$params = JComponentHelper::getParams('com_media');
 
 // Make sure core.js is loaded before media scripts
 JHtml::_('behavior.core');

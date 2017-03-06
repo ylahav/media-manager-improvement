@@ -20,12 +20,12 @@ JHtml::_('stylesheet', 'media/media-file.css', array('version' => 'auto', 'relat
 ?>
 <div class="form-inline form-inline-header">
 
-	<div class="row-fluid">
+	<div class="row">
 		<div class="span9">
 			<fieldset class="adminform">
 				<div class="container">
-					<div class="row-fluid">
-						<div class="span1">
+					<div class="row">
+						<div class="col-md-1">
 							<ul id="myTab" class="nav nav-pills">
 								<?php foreach ($this->pluginCategories as $i => $category) : ?>
 									<?php $alias = JApplicationHelper::stringURLSafe($category); ?>
@@ -40,7 +40,7 @@ JHtml::_('stylesheet', 'media/media-file.css', array('version' => 'auto', 'relat
 							</ul>
 						</div>
 
-						<div class="span3">
+						<div class="col-md-3">
 							<div class="tab-content">
 								<?php foreach ($this->pluginCategories as $i => $category) : ?>
 									<?php $alias = JApplicationHelper::stringURLSafe($category); ?>
@@ -91,7 +91,7 @@ JHtml::_('stylesheet', 'media/media-file.css', array('version' => 'auto', 'relat
 
 							</div><!-- //Tab content -->
 						</div>
-						<div class="span8">
+						<div class="col-md-8">
 							<?php // @todo fileextension ?>
 							<img src="<?php echo $this->fullFilePath ?>" id="file"/>
 						</div>
