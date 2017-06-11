@@ -3,7 +3,7 @@
   "version": "4.0.0",
   "description": "Component for managing site media",
   "license": "GPL-3.0",
-  "author": "",
+  "private": true,
   "scripts": {
     "build": "npm run build-css & npm run build-js",
     "build-css": "node-sass ./resources/styles/mediamanager.scss ../../../media/com_media/css/mediamanager.css",
