@@ -13,7 +13,9 @@ var webpackConfig = require('./webpack.prod.conf')
 var spinner = ora('building for production...')
 spinner.start()
 
-rm(path.join(config.build.assetsRoot, config.build.assetsSubDirectory), err => {
+var path = path.join(config.build.assetsRoot, config.build.assetsSubDirectory);
+
+rm(path + '/**/{mediamanager*,vendor*,manifest*}', err => {
   if (err) throw err
   webpack(webpackConfig, function (err, stats) {
     spinner.stop()

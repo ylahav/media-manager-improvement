@@ -16,7 +16,9 @@ JHtml::_('behavior.core');
 JHtml::_('behavior.keepalive');
 
 // Add javascripts
-JHtml::_('script', 'media/com_media/js/main.js');
+JHtml::_('script', 'media/com_media/js/manifest.js');
+JHtml::_('script', 'media/com_media/js/vendor.js');
+JHtml::_('script', 'media/com_media/js/mediamanager.js');
 
 // Add stylesheets
 JHtml::_('stylesheet', 'media/com_media/css/mediamanager.css');
