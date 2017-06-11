@@ -1,4 +1,4 @@
-import {api} from "../app/Api";
+import {api} from "../util/Api";
 import * as types from "./mutation-types";
 
 // Actions are similar to mutations, the difference being that:

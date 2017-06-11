@@ -1,3 +1,4 @@
+<style src="./styles/mediamanager.scss" lang="scss"></style>
 <template>
     <div class="media-container row" :style="{minHeight: fullHeight}">
         <div class="media-sidebar col-md-2 hidden-sm-down">

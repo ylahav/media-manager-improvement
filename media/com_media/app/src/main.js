@@ -1,5 +1,5 @@
 import Vue from "vue";
-import Event from './app/Event';
+import Event from './util/Event';
 import App from "./components/app.vue";
 import Tree from "./components/tree/tree.vue";
 import TreeItem from "./components/tree/item.vue";
@@ -13,6 +13,9 @@ import Infobar from "./components/infobar/infobar.vue";
 import Upload from "./components/upload/upload.vue";
 import Translate from "./plugins/translate";
 import store from './store/store';
+
+// Diable production tip
+Vue.config.productionTip = false
 
 // Add the plugins
 Vue.use(Translate);
